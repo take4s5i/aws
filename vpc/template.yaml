@@ -39,12 +39,14 @@ Resources:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
+    DependsOn:
+      - VPCIGW
   PublicRoute1:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
-      NatGatewayId: !Ref NatGateway
+      GatewayId: !Ref InternetGateway
   PrivateRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -54,4 +56,4 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
-      GatewayId: !Ref InternetGateway
+      NatGatewayId: !Ref NatGateway
