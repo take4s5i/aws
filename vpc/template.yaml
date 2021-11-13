@@ -22,10 +22,8 @@ Resources:
       VpcId: !Ref VPC
   InternetGateway:
     Type: AWS::EC2::InternetGateway
-    Properties: {}
   NatGatewayEIP:
     Type: AWS::EC2::EIP
-    Properties: {}
   NatGateway:
     Type: AWS::EC2::NatGateway
     Properties:
@@ -37,7 +35,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
   PublicRoute1:
-    Type: AWS:EC2::Route
+    Type: AWS::EC2::Route
     Properties:
       RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
@@ -47,7 +45,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
   PrivateRoute1:
-    Type: AWS:EC2::Route
+    Type: AWS::EC2::Route
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
