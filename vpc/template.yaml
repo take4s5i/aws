@@ -49,4 +49,4 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
-      NatGatewayId: !Ref InternetGateway
+      GatewayId: !Ref InternetGateway
