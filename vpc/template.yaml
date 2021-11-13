@@ -22,6 +22,11 @@ Resources:
       VpcId: !Ref VPC
   InternetGateway:
     Type: AWS::EC2::InternetGateway
+  VPCIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
   NatGatewayEIP:
     Type: AWS::EC2::EIP
   NatGateway:
