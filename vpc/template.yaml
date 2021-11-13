@@ -14,21 +14,41 @@ Resources:
       AvailabilityZone: ap-northeast-1a
       CidrBlock: "10.0.1.0/24"
       VpcId: !Ref VPC
-  PublicSubnetC:
-    Type: AWS::EC2::Subnet
-    Properties:
-      AvailabilityZone: ap-northeast-1c
-      CidrBlock: "10.0.2.0/24"
-      VpcId: !Ref VPC
   PrivateSubnetA:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1a
       CidrBlock: "10.0.3.0/24"
       VpcId: !Ref VPC
-  PrivateSubnetC:
-    Type: AWS::EC2::Subnet
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties: {}
+  NatGatewayEIP:
+    Type: AWS::EC2::EIP
+    Properties: {}
+  NatGateway:
+    Type: AWS::EC2::NatGateway
     Properties:
-      AvailabilityZone: ap-northeast-1c
-      CidrBlock: "10.0.4.0/24"
+      AllocationId: !GetAtt NatGatewayEIP.AllocationId
+      ConnectivityType: public
+      SubnetId: !Ref PublicSubnetA
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
       VpcId: !Ref VPC
+  PublicRoute1:
+    Type: AWS:EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      NatGatewayId: !Ref NatGateway
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+  PrivateRoute1:
+    Type: AWS:EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      NatGatewayId: !Ref InternetGateway
